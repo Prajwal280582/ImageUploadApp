@@ -29,6 +29,7 @@ namespace ImageUploadApp.Client.Pages
             {
                 model.selectedFiles = e.GetMultipleFiles();
                 model.message = $"{model.selectedFiles.Count} file(s) selected";
+                
 
             }
             catch (Exception ex)
