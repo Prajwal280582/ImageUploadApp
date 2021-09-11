@@ -1,0 +1,22 @@
+﻿@page "/loggerpage"
+@using Microsoft.Extensions.Logging
+@using ImageUploadApp.Shared
+@inject InMemoryLog mLog
+<h3>Logger Page</h3>
+<div>
+    <ul>
+        @foreach (var item in mLog.log)
+            {
+            <li>@item</li>
+            }
+
+    </ul>
+
+</div>
+@code {        
+    protected override void OnInitialized()
+    {
+        mLog.OnChange += StateHasChanged;
+    }
+
+}
