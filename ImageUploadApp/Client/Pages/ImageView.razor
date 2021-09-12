@@ -1,22 +1,47 @@
 ﻿@page "/imageview"
-@using Microsoft.Extensions.Logging
-@using ImageUploadApp.Shared
-@inject InMemoryLog mLog
+@inherits ImageViewBase
+
 <h3>Image View</h3>
-<div>
-    <ul>
-        @foreach (var item in mLog.log)
-            {
-            <li>@item</li>
-            }
 
-    </ul>
+<div class="table-responsive">
 
-</div>
-@code {        
-    protected override void OnInitialized()
+    @if (lstUriRow1 != null)
     {
-        mLog.OnChange += StateHasChanged;
-    }
+    <table class="table">
+        <tr class="col-10">
+            @foreach (var uri in lstUriRow1)
+            {
 
-}
+                <td>
+                    <img src="@uri" class="img-fluid img-thumbnail" />
+                </td>
+
+            }
+        </tr>
+        <tr class="col-10">
+            @foreach (var uri in lstUriRow2)
+            {
+
+                <td>
+                    <img src="@uri" class="img-fluid img-thumbnail" />
+                </td>
+
+            }
+        </tr>
+
+    </table>
+    
+
+        <div class="pagination">
+            <button class="btn btn-custom" @onclick=@(async ()=>await navigatePage("previous"))>Prev</button>
+            @for (int i = pageModel.startPage; i <= pageModel.endPage; i++)
+            {
+                var currentPage = i;
+                <button class="btn btn-custom pagebutton @(currentPage==pageModel.curPage?"btn-danger":"")" @onclick=@(async () =>await refreshRecords(currentPage))>
+                    @currentPage
+                </button>
+            }
+            <button class="btn btn-custom" @onclick=@(async ()=>await navigatePage("next"))>Next</button>
+        </div>
+    }
+</div>

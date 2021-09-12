@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -21,5 +22,8 @@ namespace ImageUploadApp.Shared
         public IFormFile imageFile { set; get; }
 
         public string message = "No file(s) selected";
+
+        public List<Uri> listUri { set; get; }
+
     }
 }

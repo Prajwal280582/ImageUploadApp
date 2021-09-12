@@ -100,7 +100,7 @@ namespace ImageUploadApp.Client.Pages
                 logger.LogError(ex.Message);
                 model.message = $"Image Upload was unsuccessful";
             }
-
+            logger.LogInformation("Upload Completed");
         }
 
         protected bool ImageValidate(IBrowserFile file)
