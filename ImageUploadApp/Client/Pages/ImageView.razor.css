@@ -1,0 +1,15 @@
+﻿/*CSS For Image Scaling on Phot Gallery*/
+
+.inner {
+   /*overflow:hidden;*/
+}
+
+    .inner img{
+        transition: all 1.5s ease;
+    }
+
+    .inner:hover img {
+        -ms-transform: scale(3); /* IE 9 */
+        -webkit-transform: scale(3); /* Safari 3-8 */
+        transform: scale(3);
+    }

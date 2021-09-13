@@ -1,47 +1,88 @@
 ﻿@page "/imageview"
 @inherits ImageViewBase
 
-<h3>Image View</h3>
+<h3>Photo Gallery</h3>
 
 <div class="table-responsive">
 
     @if (lstUriRow1 != null)
     {
+
     <table class="table">
-        <tr class="col-10">
-            @foreach (var uri in lstUriRow1)
+        <!--Second Row-->
+        <tr class="col-md-1">
+            <!--First Row-->
+            @foreach (var imgDetails in lstUriRow1)
             {
+            <td>
+                <div class="inner">
+                    <img src="@imgDetails.ImageThumbnailUri" class="img-fluid img-thumbnail" />
+                </div>
+                <table class="table-bordered table-responsive">
+                    <tr class="col-md-1">
+                        <td>
+                            <b>Name:</b> @imgDetails.ImageName
+                        </td>
+                    </tr>
+                    <tr class="col-md-1">
+                        <td>
+                            <b>Uploaded Date:</b> @imgDetails.ImageUploadDate
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Image Type:</b> @imgDetails.ImageType
+                        </td>
+                    </tr>
+                </table>
+            </td>
 
-                <td>
-                    <img src="@uri" class="img-fluid img-thumbnail" />
-                </td>
 
             }
         </tr>
-        <tr class="col-10">
-            @foreach (var uri in lstUriRow2)
-            {
 
-                <td>
-                    <img src="@uri" class="img-fluid img-thumbnail" />
-                </td>
+                <!--Second Row-->
+                <tr class="col-md-1">
+                    @foreach (var imgDetails in lstUriRow2)
+                    {
+                        <td>
+                            <div class="inner">
+                                <img src="@imgDetails.ImageThumbnailUri" class="img-fluid img-thumbnail" />
+                            </div>
+                            <table class="table-bordered table-responsive">
+                                <tr class="col-md-1">
+                                    <td>
+                                        <b>Name:</b> @imgDetails.ImageName
+                                    </td>
+                                </tr>
+                                <tr class="col-md-1">
+                                    <td>
+                                        <b>Uploaded Date:</b> @imgDetails.ImageUploadDate
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Image Type:</b> @imgDetails.ImageType
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    }
+                </tr>
 
+            </table>
+
+            <!--Pagination-->
+            <div class="pagination">
+                <button class="btn btn-custom" @onclick=@(async ()=>await navigatePage("previous"))>Prev</button>
+                @for (int i = pageModel.startPage; i <= pageModel.endPage; i++)
+                {
+                    var currentPage = i;
+                    <button class="btn btn-custom pagebutton @(currentPage==pageModel.curPage?"btn-primary":"")" @onclick=@(async () =>await refreshRecords(currentPage))>
+                        @currentPage
+                    </button>
+                }
+                <button class="btn btn-custom" @onclick=@(async ()=>await navigatePage("next"))>Next</button>
+            </div>
             }
-        </tr>
-
-    </table>
-    
-
-        <div class="pagination">
-            <button class="btn btn-custom" @onclick=@(async ()=>await navigatePage("previous"))>Prev</button>
-            @for (int i = pageModel.startPage; i <= pageModel.endPage; i++)
-            {
-                var currentPage = i;
-                <button class="btn btn-custom pagebutton @(currentPage==pageModel.curPage?"btn-danger":"")" @onclick=@(async () =>await refreshRecords(currentPage))>
-                    @currentPage
-                </button>
-            }
-            <button class="btn btn-custom" @onclick=@(async ()=>await navigatePage("next"))>Next</button>
-        </div>
-    }
 </div>

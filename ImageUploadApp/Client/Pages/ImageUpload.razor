@@ -3,39 +3,42 @@
 
 <h2>Welcome !</h2>
 
+<!-- Form for uploading Images-->
 <form @onsubmit="OnSubmit">
     <div class="form-group">
         <label class="col-form-label">File Upload</label>
         <InputFile OnChange="OnInputFileChange" multiple accept="image/*" class="form-control-file" />
     </div>
-       <button type="submit" class="btn-primary">Upload Selected File(s)</button> 
+    <button type="submit" class="btn-primary">Upload Selected File(s)</button>
 </form>
 
+<!-- Message display for users-->
 <h6 class="alert">@model.message</h6>
 
-@if (model.imageUriList != null)
-{   <div class="table-responsive">
+<!-- Displaying all the selected file information(filename and images), after uploading functionality is completed-->
+@if (model.imageUriList.Count > 0)
+{<div class="table-responsive">
         <table class="table">
             <tr>
                 <th scope="col">Image Name</th>
                 <th scope="col">Image</th>
             </tr>
-        @foreach (KeyValuePair<string, string> ImgUriList in model.imageUriList)
+            @foreach (KeyValuePair<string, string> ImgUriList in model.imageUriList)
             {
-            <tr>
-                <td>
-                    @ImgUriList.Key
-                </td>
-                <td>
-                    <img src="@ImgUriList.Value" class="img-fluid img-thumbnail" />
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @ImgUriList.Key
+                    </td>
+                    <td>
+                        <img src="@ImgUriList.Value" class="img-fluid img-thumbnail" width="300" height="200" />
+                    </td>
+                </tr>
 
             }
 
         </table>
     </div>
- 
+
 }
 
 

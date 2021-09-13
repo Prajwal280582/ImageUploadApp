@@ -18,6 +18,7 @@ namespace ImageUploadApp.Client
 
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
+            //Customized logger is created
             #region logger
                 InMemoryLog mLog = new();
                 builder.Services.AddSingleton(mLog);
@@ -28,6 +29,7 @@ namespace ImageUploadApp.Client
 
             builder.RootComponents.Add<App>("#app");
 
+            //Registering the Progress bar Toolbelt Blazor loading bar package
             #region Progress Bar
                 builder.Services.AddLoadingBar(options =>
                 {
@@ -36,6 +38,7 @@ namespace ImageUploadApp.Client
                 builder.UseLoadingBar();
             #endregion 
 
+            //Registing the httpclient for Web API with Uri base address
             builder.Services.AddScoped(sp => new HttpClient
             {
                 BaseAddress

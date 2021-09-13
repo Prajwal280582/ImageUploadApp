@@ -8,14 +8,14 @@ namespace ImageUploadApp.Shared
 {
     public class PaginationModel
     {
+        //Properties required for pagination
 
+        #region Pagination properties
         public int totalRecords { set; get; }
-        public int curPage = 1;
-        
-        public int pageSize = 10;
+        public int curPage = 1;       
+        public int pageSize = 6;
         public int startPage { set; get; }
         public int endPage { set; get; }
-
         public int totalPages
         {
             get
@@ -23,18 +23,20 @@ namespace ImageUploadApp.Shared
                 return (int)Math.Ceiling(totalRecords / (decimal)pageSize);
             }
         }
-
-        public int pagerSize;
-
-        public string sortColumnName = "ID";
+        public int pagerSize;  //Required for file deletion functionality. Initialized equal to total pages
         
+        //Properties for sorting in pagination
+        public string sortColumnName = "ID";       
         public string sortDir = "DESC";
+        #endregion
 
+        // Methods required for pagination
+        #region Pagination Methods
+        //Used set the start and end pages based on the pager size when added or deleted
         public void SetPagerSize(string direction)
         {
             pagerSize = totalPages;
-
-            if (direction == "forward" && endPage < totalPages)
+            if (direction == "forward" && endPage < totalPages)  //Forward Navigation
             {
                 startPage = endPage + 1;
                 if (endPage + pagerSize < totalPages)
@@ -45,18 +47,18 @@ namespace ImageUploadApp.Shared
                 {
                     endPage = totalPages;
                 }
-
             }
-            else if (direction == "back" && startPage > 1)
+            else if (direction == "back" && startPage > 1)  //Backward Navigation
             {
                 endPage = startPage - 1;
                 startPage = startPage - pagerSize;
             }
         }
 
+        //Called when user click on Previous and Next in the browser pagination control
         public int NavigateToPage(string direction)
         {
-            if (direction == "next")
+            if (direction == "next")   //Activated when next is clicked
             {
                 if (curPage < totalPages)
                 {
@@ -67,7 +69,7 @@ namespace ImageUploadApp.Shared
                     curPage += 1;
                 }
             }
-            else if (direction == "previous")
+            else if (direction == "previous")   //Activated when previous is clicked
             {
                 if (curPage > 1)
                 {
@@ -78,9 +80,8 @@ namespace ImageUploadApp.Shared
                     curPage -= 1;
                 }
             }
-
             return curPage;
-           
         }
+        #endregion
     }
 }
